@@ -40,17 +40,17 @@ jobs:
               uses: "ramsey/composer-install@v1"
 
             - name: Validate ruleset against schema
-              uses: pipeline-components-xmllint@v0.1.0
+              uses: pipeline-components/xmllint@v0.1.0
               with:
                 args: xmllint --noout --schema ./vendor/squizlabs/php_codesniffer/phpcs.xsd ./*/ruleset.xml
 
             - name: Check the code-style consistency of the xml files.
-              uses: pipeline-components-xmllint@v0.1.0
+              uses: pipeline-components/xmllint@v0.1.0
               with:
                 args: diff -B --tabsize=4 ./WPThemeReview/ruleset.xml <(xmllint --format "./WPThemeReview/ruleset.xml")
 
             - name: Lint the PHP files against parse errors
-              uses: pipeline-components-xmllint@v0.1.0
+              uses: pipeline-components/xmllint@v0.1.0
               with:
                 args: if find . -path ./vendor -prune -o -name "*.php" -exec php -l {} \; | grep "^[Parse error|Fatal error]"; then exit 1; fi
 
